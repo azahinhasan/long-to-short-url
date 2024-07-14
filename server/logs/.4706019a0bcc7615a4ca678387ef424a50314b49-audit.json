@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 7
+    },
+    "auditLog": "C:\\Users\\azahi\\Desktop\\Work\\PersonalProject\\long-to-short-url\\server\\logs\\.4706019a0bcc7615a4ca678387ef424a50314b49-audit.json",
+    "files": [
+        {
+            "date": 1720972661453,
+            "name": "C:\\Users\\azahi\\Desktop\\Work\\PersonalProject\\long-to-short-url\\server\\logs\\appscript-2024-07-14-21.log",
+            "hash": "8068517e14aaec377cd73e109b60bd69da6d921ae13948270403290012001ecc"
+        }
+    ],
+    "hashType": "sha256"
+}

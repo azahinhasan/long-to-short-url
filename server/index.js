@@ -30,7 +30,7 @@ const apiLimiter = rateLimit({
 });
 
 // Mount routes
-app.use("/api/url", apiLimiter, urlRoutes);
+app.use("/", apiLimiter, urlRoutes);
 
 // connect to the database
 mongoose

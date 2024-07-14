@@ -8,6 +8,9 @@ const URLSchema = new mongoose.Schema({
   short_url: {
     type: String,
   },
+  short_url_full_info: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("urls", URLSchema);

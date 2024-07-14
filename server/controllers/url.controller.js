@@ -18,6 +18,12 @@ const createURL = async (req, res) => {
         .json({ success: false, message: "No or Invalid URL" });
     }
 
+    if (url.replace(/^(https?:\/\/)?(www\.)?/, "").length < 20) {
+      return res
+        .status(400)
+        .json({ success: false, message: "URL is too short" });
+    }
+
     if (find_long_url) {
       //checking is larger url already exist or not.
       return res.status(200).json({

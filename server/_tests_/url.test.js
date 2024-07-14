@@ -3,6 +3,7 @@ const request = require("supertest");
 
 const url = "http://www.npmjs.com/package/uuid";
 const url_invalid = "hp://www.npmjs.com/package/uuid";
+const url_short = "https://www.npmjs.com/package/d";
 let short_url_code;
 
 describe("URL Shorter service test", () => {
@@ -34,10 +35,22 @@ describe("URL Shorter service test", () => {
     );
   });
 
+  it("should return short url message if url is less then 20 characters", async () => {
+    const res = await request(app)
+      .post("/")
+      .send({ url: url_short })
+      .set("Content-Type", "application/json");
+
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body).not.toHaveProperty("short_url");
+    expect(res.body.message).toBe("URL is too short");
+  });
+
   it("should return error for invalid large url", async () => {
     const res = await request(app)
       .post("/")
-      .send({ url_invalid })
+      .send({ url: url_invalid })
       .set("Content-Type", "application/json");
 
     expect(res.status).toBe(400);

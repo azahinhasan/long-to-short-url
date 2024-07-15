@@ -15,6 +15,7 @@
 ## How to run
 - Clone this repo
 - Go to `server` folder.
+- Run `npm i`.
 - Run this command for test case `npm run test`. 
 - Run this command for running the app `npm run dev`.
 - (Optional) You can modify config data from `.env` file or `./config/config.js` file.
@@ -37,7 +38,9 @@
 
   # Some other info about the app
   - Long url must be have more then 20 characters without `protocol` type.
+  - Long URL must have protocol ("https://" or "http://").Otherwise it's will be count as invalid url.
   - If long url already exist into db it will return previous short url.
   - Invalid API will return `invalid` message.
   - Short url will be unique.
   - Unit test is active.
+  - I choose UUIDs generator for small URLs coz it's provide globally unique identifiers without needing a centralized authority.

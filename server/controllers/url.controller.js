@@ -97,6 +97,9 @@ const verify_short_uri = async () => {
 
 const verify_url = (urlString) => {
   try {
+    if (!urlString.startsWith("http://") && !urlString.startsWith("https://")) {
+      return false;
+    }
     const regex =
       /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+]*)*(\?[;&a-z\d%_.~+=-]*)?(\#[-a-z\d_]*)?$/i;
     return regex.test(urlString);

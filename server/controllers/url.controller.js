@@ -27,6 +27,7 @@ const createURL = async (req, res) => {
     if (find_long_url) {
       //checking is larger url already exist or not.
       return res.status(200).json({
+        _id: find_long_url._id,
         success: true,
         message: "Already exist.Please run short url into browser.",
         short_url: protocol + "://" + host + "/" + find_long_url.short_url,
@@ -42,6 +43,7 @@ const createURL = async (req, res) => {
     });
 
     res.status(200).json({
+      _id: newData._id,
       success: true,
       message: "Created.Please run short url into browser.",
       short_url: protocol + "://" + host + "/" + newData.short_url,
@@ -52,10 +54,25 @@ const createURL = async (req, res) => {
   }
 };
 
+const deleteUrl = async (req, res) => {
+  try {
+    const delete_url = await URL.findOneAndDelete({
+      _id: req.params.id,
+    });
+    if (!delete_url) {
+      return res.status(400).json({ success: false, message: "Not Found" });
+    }
+    res.status(200).json({ success: true, message: "Deleted!" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, message: "Something Want Wrong!" });
+  }
+};
+
 const redirectToUrl = async (req, res) => {
   try {
     const full_url = await URL.findOne({
-      short_url: req.params.short_url_code,
+      short_url: req.params.id,
     });
     if (!full_url) {
       return res.status(400).json({ success: false, message: "Not Found" });
@@ -70,9 +87,8 @@ const redirectToUrl = async (req, res) => {
 const verify_short_uri = async () => {
   try {
     const short_url_code = uuidv4().slice(0, 8);
-    console.log(short_url_code, "short_url_code");
-    const verify = await URL.find({ short_url: short_url_code });
-    //if (verify) return verify_short_uri();
+    const verify = await URL.findOne({ short_url: short_url_code });
+    if (verify) return await verify_short_uri();
     return short_url_code;
   } catch (err) {
     res.status(400).json({ success: false, message: "Something Want Wrong!" });
@@ -92,4 +108,5 @@ const verify_url = (urlString) => {
 module.exports = {
   createURL,
   redirectToUrl,
+  deleteUrl,
 };
